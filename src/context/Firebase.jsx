@@ -1,7 +1,7 @@
 import React, { useState,useEffect,createContext,useContext } from "react";
 import { initializeApp } from "firebase/app";
 import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,onAuthStateChanged} from 'firebase/auth'
-import {getFirestore,collection,addDoc,getDocs,doc,getDoc} from 'firebase/firestore'
+import {getFirestore,collection,addDoc,getDocs,doc,getDoc,query,where} from 'firebase/firestore'
 import {getStorage,uploadBytes,ref,getDownloadURL} from 'firebase/storage'
 
 const firebaseConfig = {
@@ -87,11 +87,24 @@ const FirebaseProvider = (props)=>{
         return result
     }
 
+    const fetchMyBooks =async (userId)=>{
+        const collectionRef = collection(firestore, "books")
+        const q = query(collectionRef, where("userID","==",userId))
+        const result = await getDocs(q)
+        return result
+    }
+
+    const getOrders = (bookId)=>{
+        const collectionRef = collection(firestore,'books',bookId,'orders')
+        const result = getDocs(collectionRef)
+        return result
+    }
+
     const isLoggedIn = user ? true : false ;
     
     return (
         <FirebaseContext.Provider 
-            value={{signUpUserWithEmailAndPassword,logInUser,signInWithGoogle,createNewList,listAllBooks,getImageURL,getBookById,PlaceOrder,isLoggedIn}}>
+            value={{signUpUserWithEmailAndPassword,logInUser,signInWithGoogle,createNewList,listAllBooks,getImageURL,getBookById,PlaceOrder,fetchMyBooks,getOrders,user,isLoggedIn}}>
             {props.children}
         </FirebaseContext.Provider>
     )

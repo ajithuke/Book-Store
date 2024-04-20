@@ -16,7 +16,7 @@ const HomePage = ()=>{
         <div className="container">
         <CardGroup>
             {books.map((book)=>(
-                <BookCard key={book.id} bookId={book.id} {...book.data()} />
+                <BookCard link={`/book/view/${book.id}`} btntitle={'See Details'} key={book.id} bookId={book.id} {...book.data()} />
             ))}
         </CardGroup>
         </div>

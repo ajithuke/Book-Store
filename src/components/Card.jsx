@@ -22,7 +22,7 @@ const BookCard = (props)=>{
             <Card.Text>
                 Author of this book is Mr. {props.Author} and price of this book is Rs.{props.price}
             </Card.Text>
-            <Button onClick={(e)=>{navigate(`book/view/${props.bookId}`)}} variant="primary">Go somewhere</Button>
+            <Button onClick={(e)=>{navigate(props.link)}} variant="primary">{props.btntitle}</Button>
             </Card.Body>
         </Card>
     )
