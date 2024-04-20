@@ -55,9 +55,7 @@ const LoginPage = ()=>{
                 <Button variant="primary" type="submit">
                     Log In
                 </Button>
-
                 <h2 className="mt-4 mb-4">OR</h2>
-
                 <Button onClick={firebase.signInWithGoogle} variant="success">Sign in With Google</Button>
             </Form>
         </div>
